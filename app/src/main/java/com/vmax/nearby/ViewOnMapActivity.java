@@ -37,11 +37,11 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
 
 
     private GoogleMap mMap;
-    static Double latit=17.442809, longi=78.463639;
-    String my_location="current location",status,desc;
+    static Double latit = 17.442809, longi = 78.463639;
+    String my_location = "current location", status, desc;
     //String getLat="17.442809",getLng="78.463639", cat_type_id="2";
-   // String getLat="17.442809",getLng="78.463639",dest_lat,dest_lng,location;
-    String getLat,getLng,dest_lat,dest_lng,location;
+    // String getLat="17.442809",getLng="78.463639",dest_lat,dest_lng,location;
+    String getLat, getLng, dest_lat, dest_lng, location;
     ArrayList<String> idArrayList = new ArrayList<String>();
     ArrayList<String> latArrayList = new ArrayList<String>();
     ArrayList<String> lngArrayList = new ArrayList<String>();
@@ -55,7 +55,7 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
 
-    public String getlatitude,getlongitude;
+    public String getlatitude, getlongitude;
     String currentLanguage;
     Configuration config;
     Locale locale;
@@ -64,7 +64,6 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_on_map);
-
 
 
         initMap();
@@ -80,8 +79,6 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
     }
 
 
-
-
     @Override
     public void onMapReady(final GoogleMap map) {
         mMap = map;
@@ -90,52 +87,50 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
         geocoder = new Geocoder(this, Locale.getDefault());
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-          //  location = geocoder.getFromLocation(Double.valueOf(dest_lat), Double.valueOf(dest_lng), 1);
-            addresses_dest = new ArrayList<>();
-            if ("".equals(getLat) || "".equals(getLng)) {
-                getLat = "0.0";
-                getLng = "0.0";
-            }
+        //  location = geocoder.getFromLocation(Double.valueOf(dest_lat), Double.valueOf(dest_lng), 1);
+        addresses_dest = new ArrayList<>();
+        if ("".equals(getLat) || "".equals(getLng)) {
+            getLat = "0.0";
+            getLng = "0.0";
+        }
 
-            try {
-                my_location = getAddress(getLat, getLng);
+        try {
+            my_location = getAddress(getLat, getLng);
 
-                LatLng currentLatLng = new LatLng(Double.valueOf(getLat), Double.valueOf(getLng));
-                LatLng destLatLng = new LatLng(Double.valueOf(dest_lat), Double.valueOf(dest_lng));
+            LatLng currentLatLng = new LatLng(Double.valueOf(getLat), Double.valueOf(getLng));
+            LatLng destLatLng = new LatLng(Double.valueOf(dest_lat), Double.valueOf(dest_lng));
 
-                marker = mMap.addMarker(new MarkerOptions()
-                        .position(currentLatLng)
-                        .title(my_location)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(currentLatLng)
+                    .title(my_location)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 8));
-                mMap.animateCamera(CameraUpdateFactory.zoomIn());
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 8));
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
 
 
-                marker.showInfoWindow();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
+            marker.showInfoWindow();
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
 
-                marker = mMap.addMarker(new MarkerOptions()
-                        .position(destLatLng)
-                        .title(getAddress(dest_lat, dest_lng))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
-                marker.showInfoWindow();
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(destLatLng)      // Sets the center of the map to location user
-                        .zoom(8)                   // Sets the zoom
-                        .bearing(50)                // Sets the orientation of the camera to east
-                        .tilt(8)                   // Sets the tilt of the camera to 30 degrees
-                        .build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                mMap.isBuildingsEnabled();
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(destLatLng)
+                    .title(getAddress(dest_lat, dest_lng))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+            marker.showInfoWindow();
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(destLatLng)      // Sets the center of the map to location user
+                    .zoom(8)                   // Sets the zoom
+                    .bearing(50)                // Sets the orientation of the camera to east
+                    .tilt(8)                   // Sets the tilt of the camera to 30 degrees
+                    .build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            mMap.isBuildingsEnabled();
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //
-
 
     }
 
@@ -167,8 +162,8 @@ public class ViewOnMapActivity extends FragmentActivity implements OnMapReadyCal
 
         // Setting latitude and longitude for the marker
         markerOptions.position(latLng)
-                     .title(location)
-                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                .title(location)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
         // Adding marker on the Google Map
         mMap.addMarker(markerOptions);
